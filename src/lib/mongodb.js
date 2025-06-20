@@ -1,14 +1,15 @@
 // mongodb.js
 
-import { strict } from 'assert'
-import { MongoClient } from 'mongodb'
-import { deprecate } from 'util'
+// import { strict } from 'assert'
+import { MongoClient, ServerApiVersion } from 'mongodb'
+// import { deprecate } from 'util'
 
 const uri = process.env.MONGODB_URI
 const options = {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     serverApi:{
+        version: ServerApiVersion.v1,
         strict: true,
         desprecationErrors: true
     }
