@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
-import { Content } from 'next/font/google';
-
+// import { Content } from 'next/font/google';
 
 export default async function handler(
     req: NextApiRequest,
@@ -23,7 +22,7 @@ export default async function handler(
         }
 
         const kursus = await db.collection("kursus").find({
-            title : {$regex : filter,$option:1},
+            title : {$regex : filter, $options:'i'},
         },option).toArray();
         res.json({ status: 200, data: kursus });
         break;
