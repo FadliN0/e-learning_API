@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
+import { Content } from 'next/font/google';
 
 
 export default async function handler(
@@ -14,7 +15,16 @@ export default async function handler(
     switch (req.method) {
 
     case "GET":
-        const kursus = await db.collection("kursus").find({}).toArray();
+        const filter = req.query.filter || '';
+        const option = {
+            projection : {
+                content : 0
+            }
+        }
+
+        const kursus = await db.collection("kursus").find({
+            title : {$regex : filter,$option:1},
+        },option).toArray();
         res.json({ status: 200, data: kursus });
         break;
     }
